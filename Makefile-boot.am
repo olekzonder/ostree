@@ -35,6 +35,11 @@ mkinitcpioconfdir = $(sysconfdir)
 mkinitcpioconf_DATA = src/boot/mkinitcpio/ostree-mkinitcpio.conf
 endif
 
+if BUILDOPT_INITRAMFSTOOLS
+initramfsdir = $(prefix)/share/initramfs-tools/hooks
+initramfs_SCRIPTS = src/boot/initramfs-tools/ostree
+endif
+
 if BUILDOPT_SYSTEMD
 systemdsystemunit_DATA = src/boot/ostree-prepare-root.service \
 	src/boot/ostree-remount.service \
@@ -67,6 +72,7 @@ endif
 EXTRA_DIST += src/boot/dracut/module-setup.sh \
 	src/boot/dracut/ostree.conf \
 	src/boot/mkinitcpio \
+	src/boot/initramfs-tools/ostree \
 	src/boot/ostree-boot-complete.service \
 	src/boot/ostree-prepare-root.service \
 	src/boot/ostree-finalize-staged.path \
@@ -77,3 +83,4 @@ EXTRA_DIST += src/boot/dracut/module-setup.sh \
 	src/boot/grub2/grub2-15_ostree \
 	src/boot/grub2/ostree-grub-generator \
 	$(NULL)
+

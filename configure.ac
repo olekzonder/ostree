@@ -597,6 +597,12 @@ AC_ARG_WITH(mkinitcpio,
               [with_mkinitcpio=no])
 AM_CONDITIONAL(BUILDOPT_MKINITCPIO, test x$with_mkinitcpio = xyes)
 
+AC_ARG_WITH(initramfstools,
+            AS_HELP_STRING([--with-initramfstools],
+                           [Install initramfstools module (default: no)]),,
+              [with_initramfstools=no])
+AM_CONDITIONAL(BUILDOPT_INITRAMFSTOOLS, test x$with_initramfstools = xyes)
+
 dnl We have separate checks for libsystemd and the unit dir for historical reasons
 AC_ARG_WITH(libsystemd,
             AS_HELP_STRING([--without-libsystemd], [Do not use libsystemd]),
@@ -736,6 +742,7 @@ echo "
     gjs-based tests:                              $have_gjs
     dracut:                                       $with_dracut
     mkinitcpio:                                   $with_mkinitcpio
+    initramfs-tools:                              $with_initramfstools
     Static compiler for ostree-prepare-root:      $with_static_compiler
     Composefs:                                    $with_composefs"
 AS_IF([test x$with_builtin_grub2_mkconfig = xyes], [

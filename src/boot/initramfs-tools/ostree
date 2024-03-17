@@ -1,0 +1,20 @@
+#!/bin/sh -e
+
+PREREQS=""
+
+prereqs() { echo "$PREREQS"; }
+
+case "$1" in
+    prereqs)
+    prereqs
+    exit 0
+    ;;
+esac
+
+. /usr/share/initramfs-tools/hook-functions
+
+copy_exec /usr/lib/ostree/ostree-prepare-root
+copy_exec /usr/lib/ostree/ostree-remount
+mkdir -p "${DESTDIR}/usr/lib/systemd/system"
+cp /usr/lib/systemd/system/ostree-prepare-root.service "${DESTDIR}/usr/lib/systemd/system/"
+ln -s /usr/lib/systemd/system/initrd-root-fs.target.wants/ostree-prepare-root.service "${DESTDIR}/usr/lib/systemd/system/ostreee-prepare-root.service"
